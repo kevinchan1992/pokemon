@@ -1,0 +1,283 @@
+/* 全局樣式 */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 自定義滾動條 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .ant-layout-header {
+    padding: 0 16px !important;
+  }
+  
+  .ant-layout-content {
+    padding: 16px 0 !important;
+  }
+}
+
+/* 動畫效果 */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 卡片懸停效果 */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 加載動畫 */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #1890ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 價格標籤樣式 */
+.price-tag {
+  background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.price-tag.secondary {
+  background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
+}
+
+/* 稀有度標籤樣式 */
+.rarity-common { background-color: #d9d9d9; }
+.rarity-uncommon { background-color: #1890ff; }
+.rarity-rare { background-color: #722ed1; }
+.rarity-holo { background-color: #faad14; }
+.rarity-secret { background-color: #13c2c2; }
+.rarity-ultra { background-color: #eb2f96; }
+
+/* 搜索結果高亮 */
+.search-highlight {
+  background-color: #fffbe6;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+/* 響應式網格 */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+}
+
+/* 工具提示樣式 */
+.ant-tooltip {
+  font-size: 12px;
+}
+
+/* 表單樣式 */
+.ant-form-item-label > label {
+  font-weight: 500;
+}
+
+/* 按鈕組樣式 */
+.button-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 統計卡片樣式 */
+.stat-card {
+  text-align: center;
+  padding: 24px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* 頁面過渡動畫 */
+.page-transition {
+  animation: pageTransition 0.3s ease-out;
+}
+
+@keyframes pageTransition {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 錯誤狀態樣式 */
+.error-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #ff4d4f;
+}
+
+.error-state .anticon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* 成功狀態樣式 */
+.success-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #52c41a;
+}
+
+.success-state .anticon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* 空狀態樣式 */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #8c8c8c;
+}
+
+.empty-state .anticon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* 加載狀態樣式 */
+.loading-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.loading-state .ant-spin {
+  margin-bottom: 16px;
+}
+
+/* 自定義選擇器樣式 */
+.custom-select .ant-select-selector {
+  border-radius: 6px !important;
+}
+
+.custom-select .ant-select-selection-item {
+  font-weight: 500;
+}
+
+/* 自定義輸入框樣式 */
+.custom-input .ant-input {
+  border-radius: 6px;
+}
+
+.custom-input .ant-input:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 自定義按鈕樣式 */
+.custom-button {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 響應式隱藏 */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+/* 打印樣式 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
+} 
