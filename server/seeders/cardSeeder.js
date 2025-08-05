@@ -1,6 +1,7 @@
 const { Card, Price } = require('../models');
 
 const cardData = [
+  // Base Set 經典卡牌
   {
     jpName: 'ピカチュウ',
     enName: 'Pikachu',
@@ -111,6 +112,162 @@ const cardData = [
     language: 'jp',
     description: 'Fire type Pokemon card',
     hp: 50,
+    type: 'Pokemon'
+  },
+  
+  // 新增更多熱門卡牌
+  {
+    jpName: 'リザードンVMAX',
+    enName: 'Charizard VMAX',
+    cardNumber: '020/189',
+    rarity: 'Ultra Rare',
+    set: 'Darkness Ablaze',
+    setCode: 'swsh3',
+    imageUrl: 'https://images.pokemontcg.io/swsh3/20.png',
+    releaseDate: '2020-08-14',
+    language: 'jp',
+    description: 'Fire type Pokemon VMAX card',
+    hp: 330,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ピカチュウVMAX',
+    enName: 'Pikachu VMAX',
+    cardNumber: '044/185',
+    rarity: 'Ultra Rare',
+    set: 'Vivid Voltage',
+    setCode: 'swsh4',
+    imageUrl: 'https://images.pokemontcg.io/swsh4/44.png',
+    releaseDate: '2020-11-13',
+    language: 'jp',
+    description: 'Electric type Pokemon VMAX card',
+    hp: 310,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'レックウザGX',
+    enName: 'Rayquaza GX',
+    cardNumber: '109/168',
+    rarity: 'Ultra Rare',
+    set: 'Celestial Storm',
+    setCode: 'sm7',
+    imageUrl: 'https://images.pokemontcg.io/sm7/109.png',
+    releaseDate: '2018-08-03',
+    language: 'jp',
+    description: 'Dragon type Pokemon GX card',
+    hp: 180,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ミュウex',
+    enName: 'Mew ex',
+    cardNumber: '151/165',
+    rarity: 'Ultra Rare',
+    set: '151',
+    setCode: 'sv2a',
+    imageUrl: 'https://images.pokemontcg.io/sv2a/151.png',
+    releaseDate: '2023-06-16',
+    language: 'jp',
+    description: 'Psychic type Pokemon ex card',
+    hp: 180,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ブラッキーVMAX',
+    enName: 'Umbreon VMAX',
+    cardNumber: '095/203',
+    rarity: 'Ultra Rare',
+    set: 'Evolving Skies',
+    setCode: 'swsh7',
+    imageUrl: 'https://images.pokemontcg.io/swsh7/95.png',
+    releaseDate: '2021-08-27',
+    language: 'jp',
+    description: 'Dark type Pokemon VMAX card',
+    hp: 320,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'リーリエ',
+    enName: 'Lillie',
+    cardNumber: '147/149',
+    rarity: 'Ultra Rare',
+    set: 'Sun & Moon',
+    setCode: 'sm1',
+    imageUrl: 'https://images.pokemontcg.io/sm1/147.png',
+    releaseDate: '2017-02-03',
+    language: 'jp',
+    description: 'Supporter trainer card',
+    hp: null,
+    type: 'Trainer'
+  },
+  {
+    jpName: 'マリィ',
+    enName: 'Marnie',
+    cardNumber: '200/202',
+    rarity: 'Ultra Rare',
+    set: 'Sword & Shield',
+    setCode: 'swsh1',
+    imageUrl: 'https://images.pokemontcg.io/swsh1/200.png',
+    releaseDate: '2020-02-07',
+    language: 'jp',
+    description: 'Supporter trainer card',
+    hp: null,
+    type: 'Trainer'
+  },
+  {
+    jpName: 'アルセウスVSTAR',
+    enName: 'Arceus VSTAR',
+    cardNumber: '123/172',
+    rarity: 'Ultra Rare',
+    set: 'Brilliant Stars',
+    setCode: 'swsh9',
+    imageUrl: 'https://images.pokemontcg.io/swsh9/123.png',
+    releaseDate: '2022-02-25',
+    language: 'jp',
+    description: 'Colorless type Pokemon VSTAR card',
+    hp: 280,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ギラティナVSTAR',
+    enName: 'Giratina VSTAR',
+    cardNumber: '131/196',
+    rarity: 'Ultra Rare',
+    set: 'Lost Origin',
+    setCode: 'swsh11',
+    imageUrl: 'https://images.pokemontcg.io/swsh11/131.png',
+    releaseDate: '2022-09-09',
+    language: 'jp',
+    description: 'Dragon type Pokemon VSTAR card',
+    hp: 280,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'サーナイトex',
+    enName: 'Gardevoir ex',
+    cardNumber: '086/091',
+    rarity: 'Ultra Rare',
+    set: 'Paldea Evolved',
+    setCode: 'sv2',
+    imageUrl: 'https://images.pokemontcg.io/sv2/86.png',
+    releaseDate: '2023-06-09',
+    language: 'jp',
+    description: 'Psychic type Pokemon ex card',
+    hp: 310,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ルギアV',
+    enName: 'Lugia V',
+    cardNumber: '186/195',
+    rarity: 'Ultra Rare',
+    set: 'Silver Tempest',
+    setCode: 'swsh12',
+    imageUrl: 'https://images.pokemontcg.io/swsh12/186.png',
+    releaseDate: '2022-11-11',
+    language: 'jp',
+    description: 'Colorless type Pokemon V card',
+    hp: 220,
     type: 'Pokemon'
   }
 ];

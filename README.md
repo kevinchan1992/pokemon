@@ -240,3 +240,37 @@ MIT License
 ---
 
 **注意**: 本項目僅供學習和研究使用，價格數據僅供參考。與 The Pokemon Company 無關聯。 
+
+## 一鍵初始化和數據爬取
+
+系統提供了一個便捷的腳本，可以一鍵完成數據庫初始化、種子數據填充和真實價格數據爬取：
+
+```bash
+# 執行一鍵設置腳本
+npm run setup-and-crawl
+
+# 或者直接執行
+node scripts/setup-and-crawl.js
+```
+
+這個腳本會自動執行以下步驟：
+1. 初始化數據庫表結構
+2. 填充 20+ 張熱門 Pokemon TCG 卡牌數據
+3. 測試爬蟲連接（PriceCharting 和 SNKRDUNK）
+4. 從真實網站爬取最新價格數據
+5. 顯示爬取統計和示例數據
+
+執行完成後，您可以：
+- 訪問 http://localhost:3000 查看網站
+- 訪問 http://localhost:3000/admin/crawler 管理爬蟲
+- 在搜索頁面搜索 Pokemon 卡牌並查看真實價格
+
+## 數據來源
+
+系統支持從以下網站爬取真實價格數據：
+
+- **PriceCharting.com** - 美國市場的 Pokemon TCG 價格數據
+- **SNKRDUNK.com** - 日本市場的 Pokemon TCG 價格數據
+- **Mercari** - 日本二手交易平台的實際交易價格
+
+所有價格數據都會自動進行貨幣轉換，同時顯示日圓和美元價格。 
