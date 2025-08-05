@@ -258,18 +258,23 @@ class PriceChartingCrawlerService {
   // 保存價格數據
   async savePriceData(priceData) {
     try {
-      const priceRecords = priceData.map(data => ({
-        cardId: data.cardId,
-        priceUSD: data.marketPrice ? data.marketPrice.amount : null,
-        lowPriceUSD: data.lowPrice ? data.lowPrice.amount : null,
-        highPriceUSD: data.highPrice ? data.highPrice.amount : null,
-        source: data.source,
-        url: data.url,
-        isActive: true
-      }));
+      const priceRecords = priceData.map(data => {
+        const priceUSD = data.marketPrice ? data.marketPrice.amount : 0;
+        const priceJPY = Math.round(priceUSD * 150); // 簡單匯率轉換
+        
+        return {
+          cardId: data.cardId,
+          priceUSD: priceUSD,
+          priceJPY: priceJPY,
+          source: data.source,
+          url: data.url,
+          condition: 'near_mint',
+          isActive: true
+        };
+      });
 
       await Price.bulkCreate(priceRecords, {
-        updateOnDuplicate: ['priceUSD', 'lowPriceUSD', 'highPriceUSD', 'updatedAt']
+        updateOnDuplicate: ['priceUSD', 'priceJPY', 'updatedAt']
       });
 
       console.log(`✅ Saved ${priceRecords.length} PriceCharting price records`);
