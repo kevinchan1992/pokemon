@@ -27,7 +27,7 @@ const Price = sequelize.define('Price', {
     comment: 'Price in US Dollars'
   },
   source: {
-    type: DataTypes.ENUM('mercari', 'yahoo', 'rakuten', 'ebay', 'tcgplayer', 'trollandtoad'),
+    type: DataTypes.ENUM('mercari', 'yahoo', 'rakuten', 'ebay', 'tcgplayer', 'trollandtoad', 'pricecharting', 'snkrdunk'),
     allowNull: false,
     comment: 'Price source'
   },

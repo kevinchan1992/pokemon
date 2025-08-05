@@ -258,18 +258,23 @@ class SNKRDUNKCrawlerService {
   // 保存價格數據
   async savePriceData(priceData) {
     try {
-      const priceRecords = priceData.map(data => ({
-        cardId: data.cardId,
-        priceJPY: data.marketPrice ? data.marketPrice.amount : null,
-        lowPriceJPY: data.lowPrice ? data.lowPrice.amount : null,
-        highPriceJPY: data.highPrice ? data.highPrice.amount : null,
-        source: data.source,
-        url: data.url,
-        isActive: true
-      }));
+      const priceRecords = priceData.map(data => {
+        const priceJPY = data.marketPrice ? data.marketPrice.amount : 0;
+        const priceUSD = Math.round(priceJPY / 150 * 100) / 100; // 簡單匯率轉換
+        
+        return {
+          cardId: data.cardId,
+          priceJPY: priceJPY,
+          priceUSD: priceUSD,
+          source: data.source,
+          url: data.url,
+          condition: 'near_mint',
+          isActive: true
+        };
+      });
 
       await Price.bulkCreate(priceRecords, {
-        updateOnDuplicate: ['priceJPY', 'lowPriceJPY', 'highPriceJPY', 'updatedAt']
+        updateOnDuplicate: ['priceJPY', 'priceUSD', 'updatedAt']
       });
 
       console.log(`✅ Saved ${priceRecords.length} SNKRDUNK price records`);

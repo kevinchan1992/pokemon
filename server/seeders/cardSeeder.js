@@ -1,10 +1,11 @@
 const { Card, Price } = require('../models');
 
 const cardData = [
+  // 經典基礎系列卡牌
   {
     jpName: 'ピカチュウ',
     enName: 'Pikachu',
-    cardNumber: '025/025',
+    cardNumber: '025/102',
     rarity: 'Rare Holo',
     set: 'Base Set',
     setCode: 'base1',
@@ -12,7 +13,7 @@ const cardData = [
     releaseDate: '1999-01-09',
     language: 'jp',
     description: 'Electric type Pokemon card',
-    hp: 50,
+    hp: 60,
     type: 'Pokemon'
   },
   {
@@ -30,62 +31,6 @@ const cardData = [
     type: 'Pokemon'
   },
   {
-    jpName: 'ミュウツー',
-    enName: 'Mewtwo',
-    cardNumber: '150/150',
-    rarity: 'Rare Holo',
-    set: 'Base Set',
-    setCode: 'base1',
-    imageUrl: 'https://images.pokemontcg.io/base1/150.png',
-    releaseDate: '1999-01-09',
-    language: 'jp',
-    description: 'Psychic type Pokemon card',
-    hp: 60,
-    type: 'Pokemon'
-  },
-  {
-    jpName: 'ルカリオ',
-    enName: 'Lucario',
-    cardNumber: '019/070',
-    rarity: 'Rare Holo V',
-    set: 'Sword & Shield',
-    setCode: 'swsh1',
-    imageUrl: 'https://images.pokemontcg.io/swsh1/19.png',
-    releaseDate: '2020-02-07',
-    language: 'jp',
-    description: 'Fighting type Pokemon V card',
-    hp: 210,
-    type: 'Pokemon'
-  },
-  {
-    jpName: 'ガルーラ',
-    enName: 'Gengar',
-    cardNumber: '094/102',
-    rarity: 'Rare Holo',
-    set: 'Base Set',
-    setCode: 'base1',
-    imageUrl: 'https://images.pokemontcg.io/base1/94.png',
-    releaseDate: '1999-01-09',
-    language: 'jp',
-    description: 'Ghost type Pokemon card',
-    hp: 80,
-    type: 'Pokemon'
-  },
-  {
-    jpName: 'イーブイ',
-    enName: 'Eevee',
-    cardNumber: '063/102',
-    rarity: 'Common',
-    set: 'Base Set',
-    setCode: 'base1',
-    imageUrl: 'https://images.pokemontcg.io/base1/63.png',
-    releaseDate: '1999-01-09',
-    language: 'jp',
-    description: 'Normal type Pokemon card',
-    hp: 50,
-    type: 'Pokemon'
-  },
-  {
     jpName: 'フシギダネ',
     enName: 'Bulbasaur',
     cardNumber: '044/102',
@@ -100,18 +45,180 @@ const cardData = [
     type: 'Pokemon'
   },
   {
-    jpName: 'ヒトカゲ',
-    enName: 'Charmander',
-    cardNumber: '004/102',
+    jpName: 'ゼニガメ',
+    enName: 'Squirtle',
+    cardNumber: '063/102',
     rarity: 'Common',
     set: 'Base Set',
     setCode: 'base1',
-    imageUrl: 'https://images.pokemontcg.io/base1/4.png',
+    imageUrl: 'https://images.pokemontcg.io/base1/63.png',
     releaseDate: '1999-01-09',
     language: 'jp',
-    description: 'Fire type Pokemon card',
+    description: 'Water type Pokemon card',
+    hp: 40,
+    type: 'Pokemon'
+  },
+  
+  // 現代熱門卡牌
+  {
+    jpName: 'ピカチュウVMAX',
+    enName: 'Pikachu VMAX',
+    cardNumber: '044/185',
+    rarity: 'Rare Holo VMAX',
+    set: 'Vivid Voltage',
+    setCode: 'swsh04',
+    imageUrl: 'https://images.pokemontcg.io/swsh4/44.png',
+    releaseDate: '2020-11-13',
+    language: 'jp',
+    description: 'Electric type Pokemon VMAX card',
+    hp: 320,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'リザードンVMAX',
+    enName: 'Charizard VMAX',
+    cardNumber: '020/189',
+    rarity: 'Rare Holo VMAX',
+    set: 'Darkness Ablaze',
+    setCode: 'swsh03',
+    imageUrl: 'https://images.pokemontcg.io/swsh3/20.png',
+    releaseDate: '2020-08-14',
+    language: 'jp',
+    description: 'Fire type Pokemon VMAX card',
+    hp: 330,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ミュウツーV',
+    enName: 'Mewtwo V',
+    cardNumber: '030/189',
+    rarity: 'Rare Holo V',
+    set: 'Pokemon GO',
+    setCode: 'pgo',
+    imageUrl: 'https://images.pokemontcg.io/pgo/30.png',
+    releaseDate: '2022-07-01',
+    language: 'jp',
+    description: 'Psychic type Pokemon V card',
+    hp: 220,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ルギアV',
+    enName: 'Lugia V',
+    cardNumber: '138/195',
+    rarity: 'Rare Holo V',
+    set: 'Silver Tempest',
+    setCode: 'swsh12',
+    imageUrl: 'https://images.pokemontcg.io/swsh12/138.png',
+    releaseDate: '2022-11-11',
+    language: 'jp',
+    description: 'Psychic type Pokemon V card',
+    hp: 220,
+    type: 'Pokemon'
+  },
+  
+  // 經典稀有卡牌
+  {
+    jpName: 'ミュウ',
+    enName: 'Mew',
+    cardNumber: '011/072',
+    rarity: 'Rare Holo',
+    set: 'Celebrations',
+    setCode: 'cel25',
+    imageUrl: 'https://images.pokemontcg.io/cel25/11.png',
+    releaseDate: '2021-10-08',
+    language: 'jp',
+    description: 'Psychic type Pokemon card',
+    hp: 60,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'イーブイ',
+    enName: 'Eevee',
+    cardNumber: '101/203',
+    rarity: 'Common',
+    set: 'Evolving Skies',
+    setCode: 'swsh07',
+    imageUrl: 'https://images.pokemontcg.io/swsh7/101.png',
+    releaseDate: '2021-08-27',
+    language: 'jp',
+    description: 'Normal type Pokemon card',
     hp: 50,
     type: 'Pokemon'
+  },
+  
+  // 新系列卡牌
+  {
+    jpName: 'ニャオハ',
+    enName: 'Sprigatito',
+    cardNumber: '013/198',
+    rarity: 'Common',
+    set: 'Paldea Evolved',
+    setCode: 'pev',
+    imageUrl: 'https://images.pokemontcg.io/pev/13.png',
+    releaseDate: '2023-06-09',
+    language: 'jp',
+    description: 'Grass type Pokemon card',
+    hp: 60,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'ホゲータ',
+    enName: 'Fuecoco',
+    cardNumber: '026/198',
+    rarity: 'Common',
+    set: 'Paldea Evolved',
+    setCode: 'pev',
+    imageUrl: 'https://images.pokemontcg.io/pev/26.png',
+    releaseDate: '2023-06-09',
+    language: 'jp',
+    description: 'Fire type Pokemon card',
+    hp: 70,
+    type: 'Pokemon'
+  },
+  {
+    jpName: 'クワッス',
+    enName: 'Quaxly',
+    cardNumber: '055/198',
+    rarity: 'Common',
+    set: 'Paldea Evolved',
+    setCode: 'pev',
+    imageUrl: 'https://images.pokemontcg.io/pev/55.png',
+    releaseDate: '2023-06-09',
+    language: 'jp',
+    description: 'Water type Pokemon card',
+    hp: 60,
+    type: 'Pokemon'
+  },
+  
+  // 熱門交換卡牌
+  {
+    jpName: 'ボスの指令',
+    enName: 'Boss\'s Orders',
+    cardNumber: '154/192',
+    rarity: 'Uncommon',
+    set: 'Rebel Clash',
+    setCode: 'swsh02',
+    imageUrl: 'https://images.pokemontcg.io/swsh2/154.png',
+    releaseDate: '2020-05-01',
+    language: 'jp',
+    description: 'Supporter card',
+    hp: null,
+    type: 'Trainer'
+  },
+  {
+    jpName: 'プロフェッサーの研究',
+    enName: 'Professor\'s Research',
+    cardNumber: '178/192',
+    rarity: 'Uncommon',
+    set: 'Sword & Shield',
+    setCode: 'swsh01',
+    imageUrl: 'https://images.pokemontcg.io/swsh1/178.png',
+    releaseDate: '2020-02-07',
+    language: 'jp',
+    description: 'Supporter card',
+    hp: null,
+    type: 'Trainer'
   }
 ];
 
