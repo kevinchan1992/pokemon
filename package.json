@@ -12,7 +12,12 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "db:init": "node scripts/init-db.js",
-    "db:reset": "NODE_ENV=development node scripts/init-db.js"
+    "db:reset": "NODE_ENV=development node scripts/init-db.js",
+    "setup": "node scripts/setup-and-crawl.js setup",
+    "crawl": "node scripts/setup-and-crawl.js crawl",
+    "crawl:test": "node scripts/setup-and-crawl.js test",
+    "crawl:pricecharting": "node scripts/setup-and-crawl.js test pricecharting",
+    "crawl:snkrdunk": "node scripts/setup-and-crawl.js test snkrdunk"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^9.1.0",
