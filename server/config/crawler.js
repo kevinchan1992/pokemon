@@ -22,8 +22,42 @@ const CRAWLER_CONFIG = {
 
   // 目標網站配置
   targets: {
+    // 美國卡牌價格網站
+    usa: {
+      pricecharting: {
+        baseUrl: 'https://www.pricecharting.com',
+        searchPath: '/search',
+        selectors: {
+          cardTitle: '.card-title, .product-title',
+          price: '.price, .current-price',
+          condition: '.condition, .card-condition',
+          image: '.card-image img, .product-image img',
+          marketPrice: '.market-price',
+          lowPrice: '.low-price',
+          highPrice: '.high-price'
+        },
+        delay: 3000,
+        requiresJavaScript: true
+      }
+    },
+    
     // 日本卡牌交易平台
     japan: {
+      snkrdunk: {
+        baseUrl: 'https://snkrdunk.com',
+        searchPath: '/search',
+        selectors: {
+          cardTitle: '.product-name, .item-title',
+          price: '.price, .current-price',
+          condition: '.condition, .item-condition',
+          image: '.product-image img, .item-image img',
+          marketPrice: '.market-price',
+          lowPrice: '.low-price',
+          highPrice: '.high-price'
+        },
+        delay: 4000,
+        requiresJavaScript: true
+      },
       mercari: {
         baseUrl: 'https://jp.mercari.com',
         searchPath: '/search',

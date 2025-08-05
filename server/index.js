@@ -4,6 +4,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const { initializeDatabase } = require('./models');
 const { seedCards } = require('./seeders/cardSeeder');
+const unifiedCrawlerService = require('./services/unifiedCrawlerService');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -135,7 +136,7 @@ const userService = require('./services/userService');
 const { authenticateToken, optionalAuth } = require('./middleware/auth');
 const { cache } = require('./config/redis');
 const { ImageService, upload } = require('./services/imageService');
-const safePokemonCrawlerService = require('./services/safePokemonCrawlerService');
+const realPokemonCrawlerService = require('./services/realPokemonCrawlerService');
 
 // 搜索卡牌（帶緩存）
 app.get('/api/search', optionalAuth, async (req, res) => {
@@ -624,7 +625,7 @@ app.post('/api/images/cleanup', authenticateToken, async (req, res) => {
 // Pokemon 爬蟲 API
 app.post('/api/pokemon-crawler/start', authenticateToken, async (req, res) => {
   try {
-    if (safePokemonCrawlerService.isRunning) {
+    if (realPokemonCrawlerService.isRunning) {
       return res.status(400).json({
         success: false,
         error: '爬蟲已在運行中'
@@ -632,13 +633,13 @@ app.post('/api/pokemon-crawler/start', authenticateToken, async (req, res) => {
     }
 
     // 在背景中運行爬蟲
-    safePokemonCrawlerService.runCrawling().catch(error => {
+    realPokemonCrawlerService.runCrawling().catch(error => {
       console.error('Pokemon 爬蟲運行失敗:', error);
     });
 
     res.json({
       success: true,
-      message: 'Pokemon 模擬數據生成已啟動'
+      message: 'Pokemon 真實數據爬取已啟動'
     });
   } catch (error) {
     console.error('Pokemon crawler start API error:', error);
@@ -651,8 +652,8 @@ app.post('/api/pokemon-crawler/start', authenticateToken, async (req, res) => {
 
 app.get('/api/pokemon-crawler/stats', async (req, res) => {
   try {
-    const stats = safePokemonCrawlerService.getStats();
-    const dbStats = await safePokemonCrawlerService.getDatabaseStats();
+    const stats = realPokemonCrawlerService.getStats();
+    const dbStats = await realPokemonCrawlerService.getDatabaseStats();
     
     res.json({
       success: true,
@@ -669,7 +670,7 @@ app.get('/api/pokemon-crawler/stats', async (req, res) => {
 
 app.post('/api/pokemon-crawler/stop', authenticateToken, async (req, res) => {
   try {
-    safePokemonCrawlerService.isRunning = false;
+    realPokemonCrawlerService.isRunning = false;
     
     res.json({
       success: true,
@@ -686,7 +687,7 @@ app.post('/api/pokemon-crawler/stop', authenticateToken, async (req, res) => {
 
 app.post('/api/pokemon-crawler/cleanup', authenticateToken, async (req, res) => {
   try {
-    const deletedCount = await safePokemonCrawlerService.cleanupOldData();
+    const deletedCount = await realPokemonCrawlerService.cleanupOldData();
     
     res.json({
       success: true,
@@ -697,6 +698,131 @@ app.post('/api/pokemon-crawler/cleanup', authenticateToken, async (req, res) => 
     res.status(500).json({
       success: false,
       error: '清理數據失敗'
+    });
+  }
+});
+
+// 統一爬蟲 API
+app.post('/api/unified-crawler/start', authenticateToken, async (req, res) => {
+  try {
+    if (unifiedCrawlerService.isRunning) {
+      return res.status(400).json({
+        success: false,
+        error: '統一爬蟲已在運行中'
+      });
+    }
+
+    // 在背景中運行爬蟲
+    unifiedCrawlerService.runAllCrawlers().catch(error => {
+      console.error('統一爬蟲運行失敗:', error);
+    });
+
+    res.json({
+      success: true,
+      message: '統一爬蟲已啟動（PriceCharting + SNKRDUNK + Mercari）'
+    });
+  } catch (error) {
+    console.error('Unified crawler start API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '啟動統一爬蟲失敗'
+    });
+  }
+});
+
+app.post('/api/unified-crawler/single/:source', authenticateToken, async (req, res) => {
+  try {
+    const { source } = req.params;
+    const validSources = ['pricecharting', 'snkrdunk', 'mercari'];
+    
+    if (!validSources.includes(source)) {
+      return res.status(400).json({
+        success: false,
+        error: '無效的數據源'
+      });
+    }
+
+    const result = await unifiedCrawlerService.runSingleCrawler(source);
+    
+    res.json({
+      success: true,
+      message: `${source} 爬蟲執行完成`,
+      data: { results: result }
+    });
+  } catch (error) {
+    console.error('Single crawler API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '執行單個爬蟲失敗'
+    });
+  }
+});
+
+app.get('/api/unified-crawler/stats', async (req, res) => {
+  try {
+    const stats = unifiedCrawlerService.getStats();
+    
+    res.json({
+      success: true,
+      data: stats
+    });
+  } catch (error) {
+    console.error('Unified crawler stats API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '獲取統一爬蟲統計失敗'
+    });
+  }
+});
+
+app.post('/api/unified-crawler/test', authenticateToken, async (req, res) => {
+  try {
+    const results = await unifiedCrawlerService.testConnections();
+    
+    res.json({
+      success: true,
+      message: '連接測試完成',
+      data: results
+    });
+  } catch (error) {
+    console.error('Connection test API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '連接測試失敗'
+    });
+  }
+});
+
+app.post('/api/unified-crawler/cleanup', authenticateToken, async (req, res) => {
+  try {
+    const deletedCount = await unifiedCrawlerService.cleanupOldData();
+    
+    res.json({
+      success: true,
+      message: `清理了 ${deletedCount} 條舊數據`
+    });
+  } catch (error) {
+    console.error('Unified crawler cleanup API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '清理數據失敗'
+    });
+  }
+});
+
+app.post('/api/unified-crawler/schedule/start', authenticateToken, async (req, res) => {
+  try {
+    unifiedCrawlerService.startScheduledCrawling();
+    
+    res.json({
+      success: true,
+      message: '定時爬蟲已啟動'
+    });
+  } catch (error) {
+    console.error('Schedule start API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '啟動定時爬蟲失敗'
     });
   }
 });
