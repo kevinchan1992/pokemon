@@ -135,6 +135,7 @@ const userService = require('./services/userService');
 const { authenticateToken, optionalAuth } = require('./middleware/auth');
 const { cache } = require('./config/redis');
 const { ImageService, upload } = require('./services/imageService');
+const safePokemonCrawlerService = require('./services/safePokemonCrawlerService');
 
 // 搜索卡牌（帶緩存）
 app.get('/api/search', optionalAuth, async (req, res) => {
@@ -616,6 +617,86 @@ app.post('/api/images/cleanup', authenticateToken, async (req, res) => {
     res.status(500).json({
       success: false,
       error: '圖片清理失敗'
+    });
+  }
+});
+
+// Pokemon 爬蟲 API
+app.post('/api/pokemon-crawler/start', authenticateToken, async (req, res) => {
+  try {
+    if (safePokemonCrawlerService.isRunning) {
+      return res.status(400).json({
+        success: false,
+        error: '爬蟲已在運行中'
+      });
+    }
+
+    // 在背景中運行爬蟲
+    safePokemonCrawlerService.runCrawling().catch(error => {
+      console.error('Pokemon 爬蟲運行失敗:', error);
+    });
+
+    res.json({
+      success: true,
+      message: 'Pokemon 模擬數據生成已啟動'
+    });
+  } catch (error) {
+    console.error('Pokemon crawler start API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '啟動爬蟲失敗'
+    });
+  }
+});
+
+app.get('/api/pokemon-crawler/stats', async (req, res) => {
+  try {
+    const stats = safePokemonCrawlerService.getStats();
+    const dbStats = await safePokemonCrawlerService.getDatabaseStats();
+    
+    res.json({
+      success: true,
+      data: { ...stats, ...dbStats }
+    });
+  } catch (error) {
+    console.error('Pokemon crawler stats API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '獲取爬蟲統計失敗'
+    });
+  }
+});
+
+app.post('/api/pokemon-crawler/stop', authenticateToken, async (req, res) => {
+  try {
+    safePokemonCrawlerService.isRunning = false;
+    
+    res.json({
+      success: true,
+      message: '爬蟲已停止'
+    });
+  } catch (error) {
+    console.error('Pokemon crawler stop API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '停止爬蟲失敗'
+    });
+  }
+});
+
+app.post('/api/pokemon-crawler/cleanup', authenticateToken, async (req, res) => {
+  try {
+    const deletedCount = await safePokemonCrawlerService.cleanupOldData();
+    
+    res.json({
+      success: true,
+      message: `清理了 ${deletedCount} 條舊數據`
+    });
+  } catch (error) {
+    console.error('Pokemon crawler cleanup API error:', error);
+    res.status(500).json({
+      success: false,
+      error: '清理數據失敗'
     });
   }
 });
